@@ -45,8 +45,8 @@ def getAccountNumber(String Acc_name) {
         sh 'echo hello from function name getAccountNumber, FYI DEV Aws Account Id'
         sh 'echo DEV_ACC_ID = 1545788888778'
     }
-}
     else {
         sh 'echo hello from function name getAccountNumber, FYI QA Aws Account Id'
         sh 'echo QA_ACC_ID = 1456875645545'
     }
+}
