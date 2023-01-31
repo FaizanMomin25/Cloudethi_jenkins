@@ -1,38 +1,18 @@
 pipeline {
     agent any
-    environment {
-        dev_acc_id = '1545788888778'
-        qa_acc_id = '1456875645545'
-    }
-    parameters {
-        choice(name: 'ACCOUNT', choices: ['DEV', 'QA'], description: 'Pick ACCOUNT')
-    }
-
     stages {
-        stage('Deploy in DEV') {
-            when {
-                expression {
-                    params.ACCOUNT == 'DEV'
+        stage('Example') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
             }
             steps {
-                echo  "Building are the project in dev account  ${env.dev_acc_id}"
+                echo "Hello, ${PERSON}, nice to meet you."
             }
-        }
-        stage('Deploy in QA') {
-            when {
-                expression {
-                    params.ACCOUNT == 'QA'
-                }
-            }
-            steps {
-                echo "Building are the project in qa account  ${env.qa_acc_id}"
-            }
-        }
-    }
-    post {
-        always {
-            deleteDir() /* clean up our workspace */
         }
     }
 }
