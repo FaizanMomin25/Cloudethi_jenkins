@@ -1,8 +1,9 @@
 pipeline {
     agent any
     environment {
-        dev_acc_id = '1545788888778'
-        qa_acc_id = '1456875645545'
+        //dev_acc_id = '1545788888778'
+        //qa_acc_id = '1456875645545'
+        my_account = "${params.ACCOUNT}"
     }
     parameters {
         choice(name: 'ACCOUNT', choices: ['DEV', 'QA'], description: 'Pick ACCOUNT')
@@ -16,7 +17,8 @@ pipeline {
                 }
             }
             steps {
-                echo  "Building are the project in dev account  ${env.dev_acc_id}"
+                sh "echo Building are the project in dev aws account."
+                getAccountNumber(env.my_account)
             }
         }
         stage('Deploy in QA') {
@@ -26,7 +28,8 @@ pipeline {
                 }
             }
             steps {
-                echo "Building are the project in qa account  ${env.qa_acc_id}"
+               sh "echo Building are the project in qa aws account."
+               getAccountNumber(env.my_account)
             }
         }
     }
